@@ -56,9 +56,6 @@ struct TunnelView: View {
 			}
 			
 			NBSection(.localized("Help")) {
-				Button(.localized("Pairing File Guide"), systemImage: "questionmark.circle") {
-					UIApplication.open("https://github.com/claration/Impactor#pairing-file")
-				}
 				Button(.localized("Download LocalDevVPN"), systemImage: "arrow.down.app") {
 					UIApplication.open("https://apps.apple.com/us/app/localdevvpn/id6755608044")
 				}

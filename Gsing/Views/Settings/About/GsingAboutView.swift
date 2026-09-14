@@ -56,14 +56,7 @@ struct GsingAboutView: View {
                 )
             }
             
-            NBSection("Open Source") {
-                NavigationLink(destination: AboutView()) {
-                    HStack {
-                        Text("Open Source Acknowledgements")
-                        Spacer()
-                    }
-                }
-            } footer: {
+footer: {
                 Text(Bundle.main.bundleIdentifier ?? "")
             }
 		}

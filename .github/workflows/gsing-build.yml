@@ -2,10 +2,6 @@ name: Build Gsing IPA
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - gsing-rebrand
 
 permissions:
   contents: read

@@ -1349,7 +1349,6 @@
       }
     },
     "App Store" : {
-      "comment" : "Asami this also needs to be translated, app store isnt the same everywhere",
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
@@ -8042,65 +8041,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Đóng gói thành IPA"
-          }
-        }
-      }
-    },
-    "Pairing File Guide" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "دليل ملف الاقتران"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Průvodce párovacího souboru"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pairing-Datei Anleitung"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pairing File Guide"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guía de archivo de emparejamiento"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guide de fichier de couple"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Руководство по файлу спаривания"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eşleştirme Dosyası Kılavuzu"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hướng dẫn về tệp ghép nối"
           }
         }
       }

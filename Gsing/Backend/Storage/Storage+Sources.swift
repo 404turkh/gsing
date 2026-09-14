@@ -92,18 +92,40 @@ extension Storage {
 	}
 
 
-	func addBuiltInSources() {
-		let builtInSourceURLs = [
-            "https://raw.githubusercontent.com/404turkh/gsing/refs/heads/main/repo.json",
-            "https://community-apps.sidestore.io/sidecommunity.json",
-            "https://github.com/LiveContainer/LiveContainer/releases/download/1.0/apps.json",
-            "https://alt.crystall1ne.dev"
-		]
-		
-		for urlString in builtInSourceURLs {
-			FR.handleSource(urlString) { }
-		}
-	}
+    func addBuiltInSources() {
+        // Önceki sürümlerden kalan eski varsayılan kaynakları temizle.
+        let legacySourceURLs = [
+            "community-apps.sidestore.io",
+            "github.com/livecontainer/livecontainer",
+            "alt.crystall1ne.dev"
+        ]
+
+        var removedLegacySource = false
+
+        for source in getSources() {
+            guard let sourceURL = source.sourceURL?.absoluteString.lowercased() else {
+                continue
+            }
+
+            if legacySourceURLs.contains(where: { sourceURL.contains($0) }) {
+                context.delete(source)
+                removedLegacySource = true
+            }
+        }
+
+        if removedLegacySource {
+            saveContext()
+        }
+
+        // Gsing'in kendi varsayılan kaynağı.
+        let builtInSourceURLs = [
+            "https://raw.githubusercontent.com/404turkh/gsing/refs/heads/main/repo.json"
+        ]
+
+        for urlString in builtInSourceURLs {
+            FR.handleSource(urlString) { }
+        }
+    }
 
 	func deleteSource(for source: AltSource) {
 		context.delete(source)
