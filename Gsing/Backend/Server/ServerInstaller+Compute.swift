@@ -110,7 +110,7 @@ extension ServerInstaller {
 				],
 				[
 					"kind": "display-image",
-					"url": "https://raw.githubusercontent.com/Nyasami/Gsing/refs/heads/main/Gsing/Resources/Assets.xcassets/AppIcons/AppIcon.appiconset/Gsing-default.png",
+					"url": "https://raw.githubusercontent.com/404turkh/gsing/refs/heads/main/Gsing/Resources/Assets.xcassets/AppIcons/AppIcon.appiconset/Gsing-default.png",
 				],
 			],
 			"metadata": [
