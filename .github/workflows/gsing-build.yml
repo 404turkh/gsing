@@ -1,0 +1,47 @@
+name: Build Gsing IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - gsing-rebrand
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout Gsing
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
+      - name: Build Gsing
+        run: |
+          make clean || true
+          make Gsing
+
+      - name: Verify IPA
+        run: |
+          test -f packages/Gsing.ipa
+          ls -lh packages/Gsing.ipa
+          unzip -l packages/Gsing.ipa | head -n 30
+
+      - name: Upload Gsing IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Gsing-IPA
+          path: packages/Gsing.ipa
+          if-no-files-found: error
+          retention-days: 7

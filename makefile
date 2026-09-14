@@ -1,6 +1,6 @@
-NAME := Ksign
+NAME := Gsing
 PLATFORM := iphoneos
-SCHEMES := Ksign
+SCHEMES := Gsing
 TMP := $(TMPDIR)/$(NAME)
 STAGE := $(TMP)/stage
 APP := $(TMP)/Build/Products/Release-$(PLATFORM)
@@ -26,7 +26,7 @@ deps:
 
 $(SCHEMES): deps
 	xcodebuild \
-	    -project Ksign.xcodeproj \
+	    -project Gsing.xcodeproj \
 	    -scheme "$@" \
 	    -configuration Release \
 	    -arch arm64 \
