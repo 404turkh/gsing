@@ -1,0 +1,55 @@
+name: Release Gsing IPA
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout Gsing
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
+      - name: Build Gsing
+        run: |
+          make clean || true
+          make Gsing
+
+      - name: Verify IPA
+        run: |
+          test -f packages/Gsing.ipa
+          ls -lh packages/Gsing.ipa
+
+      - name: Publish Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+
+          if [[ "${GITHUB_REF_TYPE}" != "tag" ]]; then
+            TAG="v$(date +'%Y.%m.%d-%H%M')"
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" packages/Gsing.ipa --clobber
+          else
+            gh release create "$TAG" \
+              packages/Gsing.ipa \
+              --title "Gsing $TAG" \
+              --notes "Gsing IPA release."
+          fi
