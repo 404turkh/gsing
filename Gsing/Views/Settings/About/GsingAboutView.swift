@@ -87,7 +87,6 @@ struct GsingAboutView: View {
 			thankYou: true
 		)
 	}
-}
 
 // MARK: - Extension: view
 extension GsingAboutView {
