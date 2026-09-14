@@ -55,7 +55,6 @@ struct GsingAboutView: View {
                     github: "404turkh"
                 )
             }
-			}
             
             NBSection("Open Source") {
                 NavigationLink(destination: AboutView()) {
@@ -88,6 +87,7 @@ struct GsingAboutView: View {
 		)
 	}
 
+}
 // MARK: - Extension: view
 extension GsingAboutView {
 	@ViewBuilder
