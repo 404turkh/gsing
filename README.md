@@ -1,26 +1,26 @@
 <p align="center">
-  <img src="GSign.png" width="160" alt="GSign Logo">
+  <img src="https://raw.githubusercontent.com/404turkh/gsing/main/Gsing/Resources/Assets.xcassets/AppIcon.appiconset/Gsing-default.png" width="160" alt="GSign Logo">
 </p>
 
 <h1 align="center">GSign</h1>
 
 <p align="center">
-  <a href="https://github.com/YOUR_USERNAME/GSign/releases/latest">
-    <img src="https://img.shields.io/github/v/release/YOUR_USERNAME/GSign?style=for-the-badge&color=3c94fc" alt="Latest Release">
+  <a href="https://github.com/404turkh/gsing/releases/latest">
+    <img src="https://img.shields.io/github/v/release/404turkh/gsing?style=for-the-badge&color=3c94fc&label=S%C3%BCr%C3%BCm" alt="Son Sürüm">
   </a>
-  <a href="https://github.com/YOUR_USERNAME/GSign/releases">
-    <img src="https://img.shields.io/github/downloads/YOUR_USERNAME/GSign/total?style=for-the-badge&color=6bc563" alt="Total Downloads">
+  <a href="https://github.com/404turkh/gsing/releases">
+    <img src="https://img.shields.io/github/downloads/404turkh/gsing/total?style=for-the-badge&color=6bc563&label=%C4%B0ndirmeler" alt="Toplam İndirme">
   </a>
 </p>
 
-**GSign** is an IPA signing and sideloading application developed for iOS devices.
+**GSign**, iOS cihazlarda IPA dosyalarını imzalamak ve yan yüklemek için geliştirilmiş bir uygulamadır.
 
-At its current stage, the project largely retains the existing structure and interface of **Feather** and **KSign**. GSign-specific improvements and changes will be introduced over time.
+Proje şu aşamada **Feather** ve **KSign** projelerinin mevcut yapısını ve arayüzünü büyük ölçüde korumaktadır. GSign'a özgü geliştirmeler ve değişiklikler zaman içerisinde projeye eklenecektir.
 
-## Special Thanks
+## Özel Teşekkürler
 
-[**KSign — @Nyasami**](https://github.com/Nyasami/Ksign)
-[**Feather — @claration**](https://github.com/claration/Feather)
+[**KSign — @Nyasami**](https://github.com/Nyasami/Ksign)<br>
+[**Feather — @claration**](https://github.com/claration/Feather)<br>
 [**Zsign — @zhlynn**](https://github.com/zhlynn/zsign)
 
-Special thanks to all developers who contributed to these projects and to the open-source iOS community.
+Bu projelere emek veren ve açık kaynak iOS topluluğuna katkı sağlayan tüm geliştiricilere özel teşekkürlerimizi sunarız.
