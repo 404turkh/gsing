@@ -11,7 +11,7 @@ import NimbleViews
 
 struct ServerView: View {
 	@AppStorage("Feather.ipFix") private var _ipFix: Bool = false
-	@AppStorage("Feather.serverMethod") private var _serverMethod: Int = 0
+	@AppStorage("Feather.serverMethod") private var _serverMethod: Int = 1
 	
 	private let _serverMethods: [String] = [
 		.localized("Fully Local"), 
@@ -36,13 +36,13 @@ struct ServerView: View {
 			Section {
 				Button(.localized("Update SSL Certificates"), systemImage: "arrow.down.doc") {
 					FR.downloadSSLCertificates(from: _serverPackUrl) { success in
-						if !success {
-							DispatchQueue.main.async {
-								UIAlertController.showAlertWithOk(
-									title: .localized("SSL Certificates"),
-									message: .localized("Failed to download, check your internet connection and try again.")
-								)
-							}
+						DispatchQueue.main.async {
+							UIAlertController.showAlertWithOk(
+								title: .localized("SSL Certificates"),
+								message: success
+									? .localized("Certificates updated successfully.")
+									: .localized("Failed to download, check your internet connection and try again.")
+							)
 						}
 					}
 				}
