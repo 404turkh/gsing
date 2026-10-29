@@ -18,10 +18,10 @@
       "category": "utilities",
       "versions": [
         {
-          "version": "1.6",
+          "version": "1.6.2",
           "buildVersion": "1",
-          "date": "2026-09-14T17:38:00+03:00",
-          "localizedDescription": "Initial Gsing release.",
+          "date": "2026-10-30T01:00:00+03:00",
+          "localizedDescription": "Semi Local default for new installs; SSL update status feedback and certificate preservation.",
           "downloadURL": "https://github.com/404turkh/gsing/releases/latest/download/Gsing.ipa",
           "size": 0,
           "minOSVersion": "16.0"
