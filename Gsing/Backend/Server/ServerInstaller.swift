@@ -98,7 +98,8 @@ class ServerInstaller: Identifiable, ObservableObject {
 	}
 		
 	static func getServerMethod() -> Int {
-		UserDefaults.standard.integer(forKey: "Feather.serverMethod")
+		// Respect the saved choice; use Semi Local only if the user has not selected a method.
+		UserDefaults.standard.object(forKey: "Feather.serverMethod") as? Int ?? 1
 	}
 	
 	static func getIPFix() -> Bool {
