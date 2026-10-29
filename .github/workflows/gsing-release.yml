@@ -2,6 +2,19 @@ name: Release Gsing IPA
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "Gsing/**"
+      - "Gsing.xcodeproj/**"
+      - "AltSourceKit/**"
+      - "IDeviceKit/**"
+      - "NimbleKit/**"
+      - "Zsign/**"
+      - "makefile"
+      - ".gitmodules"
+      - ".github/workflows/gsing-release.yml"
 
 permissions:
   contents: write
@@ -34,10 +47,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="${GITHUB_REF_NAME}"
+          VERSION="$(sed -n 's/^[[:space:]]*MARKETING_VERSION = \\([^;]*\\);/\\1/p' Gsing.xcodeproj/project.pbxproj | head -n 1)"
+          test -n "$VERSION"
+          TAG="v$VERSION"
 
-          if [[ "${GITHUB_REF_TYPE}" != "tag" ]]; then
-            TAG="v$(date +'%Y.%m.%d-%H%M')"
+          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
             git tag "$TAG"
             git push origin "$TAG"
           fi
@@ -47,6 +61,6 @@ jobs:
           else
             gh release create "$TAG" \
               packages/Gsing.ipa \
-              --title "Gsing $TAG" \
-              --notes "Gsing IPA release."
+              --title "GSign $TAG" \
+              --notes "GSign IPA release: Semi Local default for new installs, SSL update feedback, and preservation of downloaded SSL certificates."
           fi
