@@ -170,7 +170,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             
             let destinationURL = serverDirectory.appendingPathComponent(fileName)
             
-            try? fileManager.removeItem(at: destinationURL)
+            // Keep certificates downloaded through Settings instead of replacing
+            // them with potentially outdated bundled files on every launch.
+            if fileManager.fileExists(atPath: destinationURL.path) {
+                continue
+            }
             
             do {
                 try fileManager.copyItem(at: bundleURL, to: destinationURL)
