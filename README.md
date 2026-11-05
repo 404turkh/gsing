@@ -5,7 +5,7 @@
 <h1 align="center">GSign</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-1.6.2-3c94fc?style=for-the-badge" alt="Version 1.6.2">
+  <img src="https://img.shields.io/badge/Version-1.0.2-3c94fc?style=for-the-badge" alt="Version 1.0.2">
   <a href="https://github.com/404turkh/Gsing/releases">
     <img src="https://img.shields.io/github/downloads/404turkh/Gsing/total?style=for-the-badge&color=6bc563&label=Downloads" alt="Total Downloads">
   </a>
@@ -17,17 +17,7 @@ At its current stage, the project largely retains the existing structure and int
 
 ## Download
 
-**[Download GSign IPA (latest release)](https://github.com/404turkh/gsing/releases/latest/download/Gsing.ipa)**
-
-[All releases](https://github.com/404turkh/gsing/releases)
-
-> The download link points to the most recent published GitHub Release. The source code alone does not update the IPA; a successful build and release are required.
-
-## What's New in 1.6.2
-
-- Semi Local is the default for new installations; existing installation preferences are preserved.
-- SSL certificate updates show a clear success or failure message.
-- Downloaded SSL certificates are preserved when the app restarts.
+**[Download GSign IPA (1.0.2)](https://github.com/404turkh/gsing/releases/download/v1.0.2/Gsing.ipa)**
 
 ## Special Thanks
 

@@ -18,11 +18,11 @@
       "category": "utilities",
       "versions": [
         {
-          "version": "1.6.2",
+          "version": "1.0.2",
           "buildVersion": "1",
-          "date": "2026-10-30T01:00:00+03:00",
-          "localizedDescription": "Semi Local default for new installs; SSL update status feedback and certificate preservation.",
-          "downloadURL": "https://github.com/404turkh/gsing/releases/latest/download/Gsing.ipa",
+          "date": "2026-11-05T19:30:00+03:00",
+          "localizedDescription": "Gsing is an iOS application for managing, signing and installing IPA files.",
+          "downloadURL": "https://github.com/404turkh/gsing/releases/download/v1.0.2/Gsing.ipa",
           "size": 0,
           "minOSVersion": "16.0"
         }

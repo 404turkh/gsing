@@ -62,5 +62,16 @@ jobs:
             gh release create "$TAG" \
               packages/Gsing.ipa \
               --title "GSign $TAG" \
-              --notes "GSign IPA release: Semi Local default for new installs, SSL update feedback, and preservation of downloaded SSL certificates."
+              --notes "GSign 1.0.2"
           fi
+
+      - name: Keep only version 1.0.2 in Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for OLD_TAG in v1.6.2 1.6.1; do
+            if gh release view "$OLD_TAG" >/dev/null 2>&1; then
+              gh release delete "$OLD_TAG" --yes --cleanup-tag
+            fi
+          done
+          gh release edit v1.0.2 --latest
