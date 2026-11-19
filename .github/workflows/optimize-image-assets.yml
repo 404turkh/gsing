@@ -1,0 +1,39 @@
+name: Optimize private Gsing image assets (no IPA build)
+on:
+  push:
+    branches:
+      - cloud-plist
+    paths:
+      - ".github/workflows/optimize-image-assets.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  optimize-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout private sources
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install lossless PNG optimizer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y optipng
+          python3 -m pip install --quiet Pillow
+      - name: Optimize image bytes, verify decoded pixels unchanged
+        run: python3 scripts/optimize_image_assets.py
+      - name: Commit optimized source images only
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- Gsing/Resources
+          if git diff --cached --quiet; then
+            echo "Source images already losslessly optimized"
+          else
+            git commit -m "Losslessly optimize source PNG images [skip ci]"
+            git fetch origin cloud-plist
+            git rebase origin/cloud-plist
+            git push origin HEAD:cloud-plist
+          fi
