@@ -5,7 +5,7 @@
 //  Created by samara on 22.04.2025.
 //
 
-import Foundation.NSURL
+import Foundation
 import UIKit.UIImage
 import Zsign
 import NimbleJSON
@@ -166,6 +166,20 @@ enum FR {
 		NBFetchService().fetch(from: urlString) { (result: Result<ServerPackModel, Error>) in
 			switch result {
 			case .success(let pack):
+                // Reject stale/corrupt TLS packs instead of falsely reporting
+                // a successful SSL update (or overwriting a valid certificate).
+                let isoDate = ISO8601DateFormatter()
+                isoDate.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                let expiry = pack.info.notAfter.flatMap { isoDate.date(from: $0) }
+                guard let expiry, expiry > Date().addingTimeInterval(3600),
+                      pack.cert.contains("-----BEGIN CERTIFICATE-----"),
+                      pack.ca.contains("-----BEGIN CERTIFICATE-----"),
+                      pack.key.contains("-----BEGIN PRIVATE KEY-----")
+                else {
+                    completion(false)
+                    return
+                }
+
 				do {
 					let serverDir = URL.documentsDirectory.appendingPathComponent("App").appendingPathComponent("Server")
 					let pemURL = serverDir.appendingPathComponent("server.pem")
@@ -174,7 +188,7 @@ enum FR {
 					
 					try FileManager.default.createDirectoryIfNeeded(at: serverDir)
 					try pack.key.write(to: pemURL, atomically: true, encoding: .utf8)
-					try pack.cert.write(to: crtURL, atomically: true, encoding: .utf8)
+					try (pack.cert + "\n" + pack.ca).write(to: crtURL, atomically: true, encoding: .utf8)
 					try pack.info.domains.commonName.write(to: commonNameURL, atomically: true, encoding: .utf8)
 					
 					generator.notificationOccurred(.success)
@@ -206,12 +220,12 @@ enum FR {
 					}
 				} else {
 					DispatchQueue.main.async {
-						UIAlertController.showAlertWithOk(title: "Error", message: "Repository already added.")
+						UIAlertController.showAlertWithOk(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Repository already added.", comment: ""))
 					}
 				}
 			case .failure(let error):
 				DispatchQueue.main.async {
-					UIAlertController.showAlertWithOk(title: "Error", message: error.localizedDescription)
+					UIAlertController.showAlertWithOk(title: NSLocalizedString("Error", comment: ""), message: error.localizedDescription)
 				}
 			}
 		}

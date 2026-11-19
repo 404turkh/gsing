@@ -107,8 +107,14 @@ extension SettingsView {
 				UIApplication.open(_githubUrl)
 			}
 
-                Button("Instagram @5gokturk", systemImage: "camera") {
+                Button {
                     UIApplication.open(_instagramUrl)
+                } label: {
+                    Label {
+                        Text("Instagram @5gokturk")
+                    } icon: {
+                        InstagramLogo()
+                    }
                 }
 		}
 	}
@@ -126,4 +132,32 @@ extension SettingsView {
 			Text(.localized("All of Gsing files except certificates are contained in the documents directory, here are some quick links to these."))
 		}
 	}
+}
+
+
+// Instagram's rounded-square camera mark, drawn as vector shapes.
+// This stays sharp at every display scale without a bundled image asset.
+private struct InstagramLogo: View {
+    var body: some View {
+        GeometryReader { geometry in
+            let size = min(geometry.size.width, geometry.size.height)
+            ZStack {
+                RoundedRectangle(cornerRadius: size * 0.27, style: .continuous)
+                    .strokeBorder(Color.accentColor, lineWidth: size * 0.085)
+                    .frame(width: size * 0.88, height: size * 0.88)
+
+                Circle()
+                    .strokeBorder(Color.accentColor, lineWidth: size * 0.085)
+                    .frame(width: size * 0.37, height: size * 0.37)
+
+                Circle()
+                    .fill(Color.accentColor)
+                    .frame(width: size * 0.095, height: size * 0.095)
+                    .offset(x: size * 0.24, y: -size * 0.24)
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+        .frame(width: 22, height: 22)
+        .accessibilityHidden(true)
+    }
 }

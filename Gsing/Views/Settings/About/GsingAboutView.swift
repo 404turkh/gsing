@@ -49,11 +49,27 @@ struct GsingAboutView: View {
             .listRowBackground(EmptyView())
 			
 			NBSection("Developer") {
-                _credit(
-                    name: "404turkh",
-                    desc: "@5gokturk",
-                    github: "404turkh"
-                )
+                HStack(spacing: 9) {
+                    Image("GsingDeveloperAvatar")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 64, height: 64)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+
+                    Text("404turkh")
+                        .font(.headline)
+
+                    Spacer()
+
+                    Image(systemName: "arrow.up.right")
+                        .foregroundStyle(.secondary)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    if let url = URL(string: "https://github.com/404turkh") {
+                        UIApplication.shared.open(url)
+                    }
+                }
             }
             
 footer: {
@@ -73,35 +89,11 @@ footer: {
 	
 	private func _showPatchNotes() {
 		UIAlertController.showAlertWithOk(
-			title: .localized("Gsing • Version \(Bundle.main.version)"),
+			title: .localized("Gsing • Version %@", arguments: Bundle.main.version),
 			message: .localized("This version introduces:\n\n- Optimization for iOS 26\n- Bulk installation support for multiple apps\n- idevice installation method\n- Custom injection path & support for injecting tweaks into App Extensions\n- Support for .bundle files as tweaks (copied directly into the app bundle)\n- rsd support\n- Fix empty display name handling in Info.plist\n- Fix URL scheme issues for Gsing\n- Fix codesigning errors on specific apps with unusual bundle structures\n- Localization updates for German, Russian, Arabic, and Vietnamese"),
 			isCancel: true,
 			thankYou: true
 		)
 	}
 
-}
-// MARK: - Extension: view
-extension GsingAboutView {
-	@ViewBuilder
-	private func _credit(
-		name: String?,
-		desc: String?,
-		github: String
-	) -> some View {
-		FRIconCellView(
-			title: name ?? github,
-			subtitle: desc ?? "",
-			iconUrl: URL(string: "https://github.com/\(github).png")!,
-			trailing: AnyView(
-				Image(systemName: "arrow.up.right")
-					.foregroundStyle(.secondary)
-			)
-		)
-		.onTapGesture {
-			if let url = URL(string: "https://github.com/\(github)") {
-				UIApplication.shared.open(url)
-			}
-		}
-	}
 }
