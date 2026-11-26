@@ -10,10 +10,7 @@ struct AppIconView: View {
     }
 
     private let options = [
-        Option(id: "primary", title: "Default", subtitle: "Gsing", alternateName: nil),
-        Option(id: "kana_peek", title: "Peek", subtitle: "Kana", alternateName: "kana_peek"),
-        Option(id: "kana_love", title: "Love", subtitle: "Kana", alternateName: "kana_love"),
-        Option(id: "kana_ded", title: "Skull", subtitle: "Kana", alternateName: "kana_ded")
+        Option(id: "primary", title: "Default", subtitle: "Gsing", alternateName: nil)
     ]
 
     @State private var selectedIcon = UIApplication.shared.alternateIconName
