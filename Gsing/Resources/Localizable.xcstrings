@@ -1,6 +1,91 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Unable to change app icon": {
+      "extractionState": "manual",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama simgesi değiştirilemedi"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to change app icon"
+          }
+        }
+      }
+    },
+    "Skull": {
+      "extractionState": "manual",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skull"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skull"
+          }
+        }
+      }
+    },
+    "Love": {
+      "extractionState": "manual",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Love"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Love"
+          }
+        }
+      }
+    },
+    "Peek": {
+      "extractionState": "manual",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peek"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peek"
+          }
+        }
+      }
+    },
+    "Available Icons": {
+      "extractionState": "manual",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mevcut Simgeler"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Available Icons"
+          }
+        }
+      }
+    },
     "": {
       "shouldTranslate": false
     },
@@ -1405,6 +1490,12 @@
             "state": "translated",
             "value": "Uygulama Simgesi"
           }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Icon"
+          }
         }
       }
     },
@@ -2696,7 +2787,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Saptanmış"
+            "value": "Varsayılan"
           }
         },
         "vi": {

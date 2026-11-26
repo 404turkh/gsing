@@ -40,7 +40,10 @@ struct SettingsView: View {
 				_feedback()
 				
 				Section {
-					NavigationLink(destination: AppearanceView()) {
+					NavigationLink(destination: AppIconView()) {
+                        Label(.localized("App Icon"), systemImage: "app.badge")
+                    }
+                    NavigationLink(destination: AppearanceView()) {
                         Label(.localized("Appearance"), systemImage: "paintbrush")
                     }
 				}
