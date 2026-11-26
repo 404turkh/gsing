@@ -1,10 +1,5 @@
-name: Optimize private Gsing image assets (no IPA build)
+name: Optimize Gsing image assets (no IPA build)
 on:
-  push:
-    branches:
-      - cloud-plist
-    paths:
-      - ".github/workflows/optimize-image-assets.yml"
   workflow_dispatch:
 permissions:
   contents: write
@@ -12,9 +7,10 @@ jobs:
   optimize-images:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout private sources
+      - name: Checkout main sources
         uses: actions/checkout@v4
         with:
+          ref: main
           persist-credentials: true
       - name: Install lossless PNG optimizer
         run: |
@@ -33,7 +29,7 @@ jobs:
             echo "Source images already losslessly optimized"
           else
             git commit -m "Losslessly optimize source PNG images [skip ci]"
-            git fetch origin cloud-plist
-            git rebase origin/cloud-plist
-            git push origin HEAD:cloud-plist
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
           fi

@@ -12,6 +12,8 @@ import Vapor
 import NIOSSL
 import NIOTLS
 import SwiftUI
+import UIKit
+import NimbleExtensions
 import IDeviceSwift
 
 // MARK: - Class
@@ -23,24 +25,33 @@ class ServerInstaller: Identifiable, ObservableObject {
 	var packageUrl: URL?
 	var app: AppInfoPresentable
 	@ObservedObject var viewModel: InstallerStatusViewModel
-	private let _server: Application
+    private var _server: Application?
+    private(set) var startupError: Error?
 
-	init(app: AppInfoPresentable, viewModel: InstallerStatusViewModel) throws {
-		self.app = app
-		self.viewModel = viewModel
-		self._server = try Self.setupApp(port: port)
-		
-		try _configureRoutes()
-		try _server.server.start()
-		_needsShutdown = true
-	}
-	
-	deinit {
-		_shutdownServer()
-	}
-		
-	private func _configureRoutes() throws {
-		_server.get("*") { [weak self] req in
+    init(app: AppInfoPresentable, viewModel: InstallerStatusViewModel) {
+        self.app = app
+        self.viewModel = viewModel
+
+        do {
+            let server = try Self.setupApp(port: port)
+            self._server = server
+            try _configureRoutes()
+            try server.server.start()
+            _needsShutdown = true
+        } catch {
+            startupError = error
+            _server?.shutdown()
+            _server = nil
+        }
+    }
+
+    deinit {
+        _shutdownServer()
+    }
+
+    private func _configureRoutes() throws {
+        guard let server = _server else { return }
+        server.get("*") { [weak self] req in
 			guard let self else { return Response(status: .badGateway) }
 			switch req.url.path {
 			case plistEndpoint.path:
@@ -83,13 +94,13 @@ class ServerInstaller: Identifiable, ObservableObject {
 		}
 	}
 	
-	private func _shutdownServer() {
-		guard _needsShutdown else { return }
-		
-		_needsShutdown = false
-		_server.server.shutdown()
-		_server.shutdown()
-	}
+    private func _shutdownServer() {
+        guard _needsShutdown else { return }
+        _needsShutdown = false
+        _server?.server.shutdown()
+        _server?.shutdown()
+        _server = nil
+    }
 	
     private func _updateStatus(_ newStatus: InstallerStatusViewModel.InstallerStatus) {
 		DispatchQueue.main.async {
@@ -98,8 +109,9 @@ class ServerInstaller: Identifiable, ObservableObject {
 	}
 		
 	static func getServerMethod() -> Int {
-		// Respect the saved choice; use Semi Local only if the user has not selected a method.
-		UserDefaults.standard.object(forKey: "Feather.serverMethod") as? Int ?? 1
+		// Preserve an explicit choice; default to Semi Local for new installations.
+		let saved = UserDefaults.standard.object(forKey: "Feather.serverMethod") as? Int
+		return [0, 1].contains(saved ?? -1) ? saved! : 1
 	}
 	
 	static func getIPFix() -> Bool {

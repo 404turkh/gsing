@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Install user-provided 512px Gsing normal/dark icons into the AppIcon catalog.
 
-Run from a checkout of the private Gsing source:
+Run from a checkout of the Gsing source:
     python3 scripts/install_gsing_icons.py /path/to/gsing.png /path/to/gsingdark.png
 
 The script changes only the app-icon asset catalog. It does NOT build an IPA.
@@ -60,17 +60,16 @@ def main() -> None:
             "Usage: install_gsing_icons.py gsing.png gsingdark.png"
         )
     prepare_icon(Path(sys.argv[1]), CATALOG / "Gsing-default.png")
-    prepare_icon(Path(sys.argv[2]), CATALOG / "Gsing-dark.png")
+    prepare_icon(Path(sys.argv[2]), CATALOG / "Gsing-trans.png")
 
     contents_path = CATALOG / "Contents.json"
     obj = json.loads(contents_path.read_text())
     for entry in obj["images"]:
         appearances = entry.get("appearances", [])
-        if any(
-            x.get("value") in ("dark", "tinted")
-            for x in appearances
-        ):
-            entry["filename"] = "Gsing-dark.png"
+        if any(x.get("value") == "dark" for x in appearances):
+            entry["filename"] = "Gsing-trans.png"
+        elif any(x.get("value") == "tinted" for x in appearances):
+            entry.pop("filename", None)
         elif entry.get("idiom") == "universal":
             entry["filename"] = "Gsing-default.png"
 

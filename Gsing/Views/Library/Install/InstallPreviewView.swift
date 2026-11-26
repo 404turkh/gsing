@@ -34,7 +34,7 @@ struct InstallPreviewView: View {
         let method = UserDefaults.standard.integer(forKey: "Feather.installationMethod")
 		let viewModel = InstallerStatusViewModel(isIdevice: method == 1)
 		self._viewModel = StateObject(wrappedValue: viewModel)
-		self._installer = StateObject(wrappedValue: try! ServerInstaller(app: app, viewModel: viewModel))
+		self._installer = StateObject(wrappedValue: ServerInstaller(app: app, viewModel: viewModel))
 	}
 	
 	// MARK: Body
@@ -80,7 +80,9 @@ struct InstallPreviewView: View {
 		}
 		.onAppear(perform: _install)
 		.onAppear {
-			BackgroundAudioManager.shared.start()
+			if isSharing || _installationMethod != 0 || installer.startupError == nil {
+                BackgroundAudioManager.shared.start()
+            }
 		}
 		.onDisappear {
             progressTask?.cancel()
@@ -99,6 +101,15 @@ struct InstallPreviewView: View {
 	}
 	
 	private func _install() {
+        if !isSharing, _installationMethod == 0, let error = installer.startupError {
+            viewModel.status = .broken(error)
+            UIAlertController.showAlertWithOk(
+                title: .localized("Install"),
+                message: error.localizedDescription
+            )
+            return
+        }
+
         guard isSharing || app.identifier != Bundle.main.bundleIdentifier! || _installationMethod == 1 else {
             UIAlertController.showAlertWithOk(
                 title: .localized("Install"),

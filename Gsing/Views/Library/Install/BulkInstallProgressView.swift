@@ -25,7 +25,7 @@ struct BulkInstallProgressView: View {
         let method = UserDefaults.standard.integer(forKey: "Feather.installationMethod")
         let viewModel = InstallerStatusViewModel(isIdevice: method == 1)
         self._viewModel = StateObject(wrappedValue: viewModel)
-        self._installer = StateObject(wrappedValue: try! ServerInstaller(app: app, viewModel: viewModel))
+        self._installer = StateObject(wrappedValue: ServerInstaller(app: app, viewModel: viewModel))
     }
     
     var body: some View {
@@ -68,7 +68,9 @@ struct BulkInstallProgressView: View {
         }
         .onAppear(perform: _install)
         .onAppear {
-            BackgroundAudioManager.shared.start()
+            if _installationMethod != 0 || installer.startupError == nil {
+                BackgroundAudioManager.shared.start()
+            }
         }
         .onDisappear {
             progressTask?.cancel()
@@ -78,6 +80,15 @@ struct BulkInstallProgressView: View {
     }
     
     private func _install() {
+        if _installationMethod == 0, let error = installer.startupError {
+            viewModel.status = .broken(error)
+            UIAlertController.showAlertWithOk(
+                title: .localized("Install"),
+                message: error.localizedDescription
+            )
+            return
+        }
+
         Task.detached {
             do {
                 let handler = await ArchiveHandler(app: app, viewModel: viewModel)

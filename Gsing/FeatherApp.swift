@@ -96,7 +96,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 #if SERVER
         // fallback just in case xd
-        _downloadSSLCertificates()
+        if ServerInstaller.getServerMethod() == 0 {
+            _downloadSSLCertificates()
+        }
 #endif
         return true
     }

@@ -24,13 +24,13 @@ extension InstallerStatusViewModel {
 	
 	var statusLabel: String {
 		switch status {
-		case .none: return "Packaging"
-		case .ready: return "Ready"
-		case .sendingManifest: return "Sending Manifest"
-		case .sendingPayload: return "Sending Payload"
-		case .installing: return "Installing"
-		case .completed: return "Completed"
-		case .broken: return "Error"
+		case .none: return NSLocalizedString("Packaging", comment: "")
+		case .ready: return NSLocalizedString("Ready", comment: "")
+		case .sendingManifest: return NSLocalizedString("Sending Manifest", comment: "")
+		case .sendingPayload: return NSLocalizedString("Sending Payload", comment: "")
+		case .installing: return NSLocalizedString("Installing", comment: "")
+		case .completed: return NSLocalizedString("Completed", comment: "")
+		case .broken: return NSLocalizedString("Error", comment: "")
 		}
 	}
 }
