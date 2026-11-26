@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "filename": "Gsing-default.png",
+      "filename": "Gsing_Normal_512_transparent.png",
       "idiom": "universal",
       "platform": "ios",
       "size": "1024x1024"
@@ -13,7 +13,7 @@
           "value": "dark"
         }
       ],
-      "filename": "Gsing-default.png",
+      "filename": "Gsing_Dark_512_transparent.png",
       "idiom": "universal",
       "platform": "ios",
       "size": "1024x1024"
@@ -25,7 +25,6 @@
           "value": "tinted"
         }
       ],
-      "filename": "Gsing-default.png",
       "idiom": "universal",
       "platform": "ios",
       "size": "1024x1024"
