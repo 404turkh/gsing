@@ -28,7 +28,6 @@ struct ServerPackModel: Decodable {
 	struct ServerPackInfo: Decodable {
 		var issuer: Domains
 		var domains: Domains
-		var notAfter: String?
 	}
 	
 	struct Domains: Decodable {

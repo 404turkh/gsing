@@ -166,14 +166,9 @@ enum FR {
 		NBFetchService().fetch(from: urlString) { (result: Result<ServerPackModel, Error>) in
 			switch result {
 			case .success(let pack):
-                // Reject stale/corrupt TLS packs instead of falsely reporting
-                // a successful SSL update (or overwriting a valid certificate).
-                let isoDate = ISO8601DateFormatter()
-                isoDate.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-                let expiry = pack.info.notAfter.flatMap { isoDate.date(from: $0) }
-                guard let expiry, expiry > Date().addingTimeInterval(3600),
-                      pack.cert.contains("-----BEGIN CERTIFICATE-----"),
-                      pack.ca.contains("-----BEGIN CERTIFICATE-----"),
+                // Keep basic PEM format checks without requiring expiry metadata
+                // or an additional CA certificate in the saved TLS pack.
+                guard pack.cert.contains("-----BEGIN CERTIFICATE-----"),
                       pack.key.contains("-----BEGIN PRIVATE KEY-----")
                 else {
                     completion(false)
@@ -188,7 +183,7 @@ enum FR {
 					
 					try FileManager.default.createDirectoryIfNeeded(at: serverDir)
 					try pack.key.write(to: pemURL, atomically: true, encoding: .utf8)
-					try (pack.cert + "\n" + pack.ca).write(to: crtURL, atomically: true, encoding: .utf8)
+					try pack.cert.write(to: crtURL, atomically: true, encoding: .utf8)
 					try pack.info.domains.commonName.write(to: commonNameURL, atomically: true, encoding: .utf8)
 					
 					generator.notificationOccurred(.success)
